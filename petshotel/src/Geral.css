@@ -1,0 +1,178 @@
+.page-container {
+    padding: 40px 80px; /* px-20 py-10 */
+    background-color: #f8f6f3; /* bg-[#f8f6f3] - Fundo das seções */
+    min-height: 100vh; /* Garante que a seção preencha a altura mínima */
+}
+
+.flex-row-start {
+    display: flex;
+    align-items: center;
+    gap: 16px; /* gap-4 */
+    justify-content: flex-start;
+}
+.flex-row-between {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+}
+.flex-col-reverse {
+    display: flex;
+    flex-direction: column-reverse;
+}
+
+
+/* --- Tipografia e Cores --- */
+
+.page-title {
+    font-size: 1.875rem; /* text-3xl */
+    font-weight: bold;
+    color: #003785;
+    margin-bottom: 1.5rem; /* mb-6 */
+}
+
+.sub-heading {
+    font-size: 2.25rem; /* text-4xl */
+    font-weight: 800; /* font-extrabold */
+    color: #003785;
+    line-height: 1.2;
+}
+
+.text-accent {
+    color: #93d1fa; /* Cor de destaque */
+}
+
+/* --- Botões e Formulários --- */
+
+.btn-primary-blue {
+    background-color: #003785;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 8px; /* rounded-lg */
+    font-weight: 600;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s;
+    border: none;
+    cursor: pointer;
+}
+.btn-primary-blue:hover {
+    background-color: #002861;
+}
+
+.btn-accent {
+    background-color: #93d1fa;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-weight: 600;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s;
+    border: none;
+    cursor: pointer;
+}
+.btn-accent:hover {
+    background-color: #6ab3e6;
+}
+
+.btn-secondary-red {
+    background-color: #7b0606;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 8px; 
+    font-weight: 600;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s;
+    border: none;
+    cursor: pointer;
+}
+
+.form-field {
+    width: 100%;
+    border: 1px solid #ccc;
+    padding: 12px;
+    border-radius: 5px;
+    margin-top: 5px;
+    background-color: #f5f8ff;
+}
+
+.list-item {
+    background-color: white;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    border: 1px solid #e5e7eb;
+}
+
+/* src/Geral.css (ADICIONAR) */
+
+/* Estilos para o Hero */
+.hero-image-container {
+    /* Define o tamanho máximo do contêiner da imagem (Substitui 'w-full md:w-2/5') */
+    width: 100%; /* Default para telas pequenas */
+    max-width: 450px; /* Limita o tamanho máximo em telas grandes */
+    margin: 0 auto; /* Centraliza */
+}
+
+.hero-image {
+    /* Garante que a imagem preencha o contêiner e mantenha o formato circular */
+    width: 100%; 
+    height: auto;
+    max-height: 450px; 
+    border-radius: 50%; /* Substitui 'rounded-full' */
+    object-fit: cover; /* Garante que a imagem preencha o espaço sem distorcer */
+}
+
+/* Defina estas classes para usar no Navbar e Footer */
+
+.header-main {
+    background-color: white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 16px 80px; /* px-20 */
+}
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.footer-main {
+    background-color: #003785; /* bg-[#003785] */
+    color: white;
+    padding: 56px 80px 24px; /* pt-14 pb-6 px-20 */
+}
+.footer-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 40px; /* gap-10 */
+    max-width: 1280px;
+    margin: 0 auto;
+}
+.text-xs-footer {
+    font-size: 0.875rem; /* text-sm */
+    color: #d1d5db; /* gray-300 */
+}
+
+/*Formulario para add Pets
+/* Seu CSS Puro (Ex: Geral.css) */
+
+.form-card {
+    /* Substitui bg-[#f5f8ff] p-8 rounded-xl shadow-lg border border-gray-200 */
+    background-color: #f5f8ff;
+    padding: 32px; /* p-8 */
+    border-radius: 12px; /* rounded-xl */
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    border: 1px solid #e5e7eb;
+    max-width: 960px; /* max-w-4xl */
+    margin-bottom: 40px; /* mb-10 */
+}
+
+.form-grid {
+    /* Substitui grid md:grid-cols-2 gap-4 */
+    display: grid;
+    grid-template-columns: 1fr; /* Padrão mobile */
+    gap: 16px; /* gap-4 */
+}
+@media (min-width: 768px) {
+    .form-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+}

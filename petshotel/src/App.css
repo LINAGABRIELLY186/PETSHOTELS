@@ -1,0 +1,27 @@
+*{
+  margin: 0;
+  padding: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  box-sizing: border-box;
+  text-shadow: black; /* Isso deve ser revisado, pois 'black' sozinho pode não funcionar */
+}
+
+/* 2. Estilos Globais e de Altura (Crucial para Centralização) */
+html, body, #root {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    /* Fundo padrão para todas as páginas */
+    background-color: #93d1fa; 
+}
+
+/* 3. Classe App (Para centralizar o Login e dar altura mínima) */
+.App {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
