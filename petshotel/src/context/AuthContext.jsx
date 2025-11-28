@@ -1,4 +1,3 @@
-import { getFullData, updateFullData } from '../api/dataManager';
 import React, { createContext, useReducer, useEffect, useContext } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom'; 
@@ -47,7 +46,6 @@ export const AuthContext = createContext(initialState);
 // --- Provider ---
 export const AuthProvider = ({ children }) => {
   const [state, dispatch] = useReducer(authReducer, initialState);
-  // ✅ 2. Declarar useNavigate dentro do componente
   const navigate = useNavigate(); 
 
   
@@ -66,50 +64,65 @@ export const AuthProvider = ({ children }) => {
         dispatch({ type: 'FINISH_LOADING' }); 
     }
   }, []);
-  const register = async (userData) => {
-        const fullData = await getFullData(); 
 
-        // 1. Verifica se o e-mail já existe
-        if (fullData.users.some(u => u.email === userData.email)) {
+  // --- Funções de Autenticação ---
+  
+  const register = async (userData) => {
+    try {
+        const checkUser = await axios.get(`${API_URL}?email=${userData.email}`);
+        if (checkUser.data.length > 0) {
             throw new Error("Este e-mail já está cadastrado.");
         }
 
-        // 2. Cria o novo usuário (ID gerado para o JSONbin)
-        const newUser = { id: Date.now().toString(), ...userData, role: 'tutor' };
-        fullData.users.push(newUser);
-
-        // 3. Salva o Bin completo de volta
-        const success = await updateFullData(fullData);
+        // 2. Criar novo usuário
+        const res = await axios.post(API_URL, { 
+            ...userData, 
+            role: 'tutor' 
+        });
         
-        if (success) {
-            dispatch({ type: 'LOGIN', payload: { user: newUser } });
-            navigate('/home'); 
-            return true;
-        } else {
-            throw new Error('Falha ao salvar dados no servidor.');
-        }
-    };
+        // 3. Login
+        dispatch({
+            type: 'LOGIN',
+            payload: { user: res.data },
+            
+        });
+        //  3. Redirecionar após sucesso
+        navigate('/home'); 
+        return true;
+    } catch (error) {
+        throw error.message || 'Erro no Cadastro'; 
+    }
+  };
 
   const login = async (email, password) => {
-        const fullData = await getFullData(); // Busca todos os dados
+    try {
+        // 1. Buscar o usuário com email E senha (query do json-server)
+        const res = await axios.get(`${API_URL}?email=${email}&password=${password}`);
+        const user = res.data[0];
 
-        // 1. Filtra localmente o usuário (BUSCA JSONBIN.IO)
-        const user = fullData.users.find(u => u.email === email && u.password === password); 
-
-        if (!user) {
+        if (!user) { // Se a busca não retornar usuário (length === 0)
             throw new Error('E-mail ou senha inválidos.');
         }
 
-        // 2. Login bem-sucedido
-        dispatch({ type: 'LOGIN', payload: { user: user } });
-        navigate('/home');
+        // 2. Login
+        dispatch({
+            type: 'LOGIN',
+            payload: { user: user },
+        });
+        //  4. Redirecionar após sucesso
+        navigate('/home'); 
         return true;
-    };
+    } catch (error) {
+        throw error.message || 'Erro no Login';
+    }
+  };
 
-    const logout = () => {
-        dispatch({ type: 'LOGOUT' });
-        navigate('/login'); 
-    };
+  const logout = () => {
+    dispatch({ type: 'LOGOUT' });
+    navigate('/login');
+  };
+
+
   return (
     <AuthContext.Provider value={{ ...state, login, logout, register }}>
       {children}
