@@ -1,7 +1,7 @@
-// src/App.jsx (REVISADO)
+
 import React from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
-import { useAuth } from "./context/AuthContext"; // Pega o loading do AuthContext
+import { useAuth } from "./context/AuthContext"; 
 
 // Importar os componentes de página
 import Hero from "./components/Login/sections/Hero";
@@ -18,12 +18,10 @@ const DashboardRedirect = () => <Navigate to="/home" replace />;
 
 
 const App = () => {
-  const { loading } = useAuth(); // Agora o loading é gerenciado pelo contexto
+  const { loading } = useAuth(); 
 
-  // Se o contexto estiver carregando/verificando o token, a aplicação pode aguardar aqui.
-  // O PrivateRoute também tem uma verificação interna.
+  
   if (loading) {
-    // Retornamos null ou um loader global aqui se quisermos, mas o PrivateRoute é mais eficiente
   }
 
   return (
